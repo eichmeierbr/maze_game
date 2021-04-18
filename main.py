@@ -5,10 +5,12 @@ from mars import *
 from maze import *
 from player import *
 
-
+# Pick Player
 player = player()
-# gam = maze_game()
-gam = mars_game()
 
+# Pick Game
+gam = maze_game()
+# gam = mars_game()
+
+# Play Game
 gam.play_game(player)
-a=3
