@@ -13,6 +13,17 @@ class maze_game(game):
 
         super().__init__()
 
+        if map_file == 'maze_easy.csv':
+            self.robot_pos = np.array([2,1])
+            self.goal_pos = np.array([1,4])
+        if map_file == 'maze_medium.csv':
+            self.robot_pos = np.array([4,0])
+            self.goal_pos = np.array([1,7])
+        if map_file == 'maze_hard.csv':
+            self.robot_pos = np.array([1,48])
+            self.goal_pos = np.array([47,1])
+
+
         self.show_img()
 
 

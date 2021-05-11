@@ -5,19 +5,23 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from game import *
 
 class mars_game(game):
-    def __init__(self):
+    def __init__(self, random_start=False, robot_start=np.array([10,1]), goal_start=np.array([2,9])
+):
         self.img = plt.imread("mars.jpg")
         self.map_size = [15,12]
         self.map = self.make_map()
 
         super().__init__()
 
-        self.valid_actions = ['U', 'D', 'L', 'R']
+        self.valid_actions = ['U', 'D', 'L', 'R', '_']
 
-        self.robot_pos = np.array([10,1])
+        if random_start:
+            self.robot_pos, self.goal_pos = self.random_starts()
+        else:
+            self.robot_pos = robot_start
+            self.goal_pos = goal_start
+
         self.robot_img = OffsetImage(plt.imread("rover2.png"), zoom=.15)
-
-        self.goal_pos = np.array([2,9])
         self.goal_img = OffsetImage(plt.imread("base.png"), zoom=.25)
 
         self.plot_offset = [0,0]
@@ -29,6 +33,30 @@ class mars_game(game):
         self.invalid_in_txt = 'Invalid input received'
 
         self.show_img()
+
+
+    def random_starts(self):
+
+        val = 1
+        while val:
+            x = np.random.randint(0, self.map_size[0])
+            y = np.random.randint(0, self.map_size[1])
+            val = self.map[x, y]
+
+        robot_pose = np.array([x, y])
+
+        val = 1
+        while val:
+            x = np.random.randint(0, self.map_size[0])
+            y = np.random.randint(0, self.map_size[1])
+            val = self.map[x, y]
+            diff = robot_pose - [x,y]
+            val = val or np.sum(diff) < 8
+
+        goal_pose = np.array([x, y])
+
+        a=3
+        return robot_pose, goal_pose
 
 
 

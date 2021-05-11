@@ -15,13 +15,13 @@ class game:
        
         self.fig, self.ax = plt.subplots()
 
-        self.valid_actions = ['U', 'D', 'L', 'R']
+        self.valid_actions = ['U', 'D', 'L', 'R', '_']
         self.last_act = ''
 
         self.robot_pos = np.array([2,1])
-        self.robot_img = OffsetImage(plt.imread("robot.png"), zoom=.04)
-
         self.goal_pos = np.array([1,4])
+
+        self.robot_img = OffsetImage(plt.imread("robot.png"), zoom=.04)
         self.goal_img = OffsetImage(plt.imread("goal.png"), zoom=.03)
 
         self.plot_offset = [.5,.5]
@@ -43,7 +43,19 @@ class game:
             act = player.act(self)
             self.last_act = act
             print(act)
+            self.process_action(act)
 
+
+            ## Check end condition
+            if self.checkEndCondition():
+                self.show_success_text = True
+                print(self.success_text)
+                self.show_img()
+                plt.pause(5)
+                return
+
+
+    def process_action(self, act):
             temp = self.robot_pos + 0
             if act in self.valid_actions:
                 ## Get action
@@ -59,7 +71,6 @@ class game:
                 self.show_invalid_text = True
 
             
-
             ## Check for collision
             if self.map[temp[0], temp[1]] == 0:
                 self.robot_pos = temp[:]
@@ -67,13 +78,13 @@ class game:
                 self.show_obstacle_text = True
                 print(self.obstacle_text)
 
-            ## Check end condition
-            if np.allclose(self.robot_pos, self.goal_pos):
-                self.show_success_text = True
-                print(self.success_text)
-                self.show_img()
-                plt.pause(5)
-                return
+            self.custom_action(act)
+
+    def custom_action(self, act):
+        pass
+
+    def checkEndCondition(self):
+        return np.allclose(self.robot_pos, self.goal_pos)
 
 
     def make_map(self):
@@ -105,19 +116,10 @@ class game:
         ab = AnnotationBbox(self.robot_img, (x+dx, y+dy), frameon=False)
         self.ax.add_artist(ab)
 
-        ## Draw Title Text
-        extra = ''
-        if self.show_invalid_text:
-            extra = self.invalid_in_txt
-            self.show_invalid_text = False
-        elif self.show_obstacle_text:
-            extra = self.obstacle_text
-            self.show_obstacle_text = False
-        elif self.show_success_text:
-            extra = self.success_text
-            self.show_success_text = False
+        self.custom_plot()
 
-        title = self.goal_text + '\n' + self.action_text + '\n' + extra
+        ## Draw Title Text
+        title = self.goal_text + '\n' + self.action_text + '\n' + self.title_extra_txt()
         plt.title(title)
 
         ## Draw Action Text
@@ -129,3 +131,19 @@ class game:
 
         ## Remove Texts
         self.fig.texts = []
+
+    def custom_plot():
+        pass
+
+    def title_extra_txt(self):
+        extra = ''
+        if self.show_invalid_text:
+            extra = self.invalid_in_txt
+            self.show_invalid_text = False
+        elif self.show_obstacle_text:
+            extra = self.obstacle_text
+            self.show_obstacle_text = False
+        elif self.show_success_text:
+            extra = self.success_text
+            self.show_success_text = False
+        return extra
