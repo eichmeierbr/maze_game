@@ -1,7 +1,7 @@
 import numpy as np
 from pynput import keyboard
 from game import *
-
+from a_star import *
     
 
 class player:
@@ -13,7 +13,23 @@ class player:
         self.goal_y = 0
         self.map = 0
         self.scene = None
+        self.path = []
         pass
+
+
+    def useCheat(self, reuse=False):
+        if len(self.path) == 0 or not reuse:
+            astar = a_star(self.scene.map, start=self.scene.robot_pos, goal=self.scene.goal_pos)
+            self.path = astar.findPath(self.scene.robot_pos, self.scene.goal_pos)
+
+        # dict_map = {'[1,0]':'r', '[-1,0]':'l', '[0,-1]':'d', '[0,1]':'u'}
+        if self.path[0][0] == 1: act = 'r'
+        if self.path[0][0] == -1: act = 'l'
+        if self.path[0][1] == 1: act = 'u'
+        if self.path[0][1] == -1: act = 'd'
+        self.path = self.path[1:]
+        return act
+        
 
 
     def doAction(self):
