@@ -43,7 +43,8 @@ class mars_game(game):
             y = np.random.randint(0, self.map_size[1])
             val = self.map[x, y]
 
-        robot_pose = np.array([x, y])
+        # robot_pose = np.array([13,1])
+        robot_pose = np.array([x,y])
 
         val = 1
         while val:
@@ -51,7 +52,7 @@ class mars_game(game):
             y = np.random.randint(0, self.map_size[1])
             val = self.map[x, y]
             diff = robot_pose - [x,y]
-            val = val or np.sum(diff) < 8
+            val = val or np.sum(np.abs(diff)) < 8
 
         goal_pose = np.array([x, y])
 

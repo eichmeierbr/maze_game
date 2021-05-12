@@ -10,16 +10,16 @@ class mars_action_game(game):
 
         self.valid_actions = ['U', 'D', 'L', 'R', 'A', '_']
 
-        self.martian_pos = martian_start
         self.has_martian = False
         self.show_action_txt = False
         self.show_good_action_txt = False
 
         if random_start:
-            self.robot_pos, self.goal_pos = self.random_starts()
+            self.robot_pos, self.goal_pos, self.martian_pos = self.random_starts()
         else:
             self.robot_pos = robot_start
             self.goal_pos = goal_start
+            self.martian_pos = martian_start
 
         self.robot_img = OffsetImage(plt.imread("rover2.png"), zoom=.15)
         self.goal_img = OffsetImage(plt.imread("base.png"), zoom=.25)
@@ -55,7 +55,8 @@ class mars_action_game(game):
             y = np.random.randint(0, self.map_size[1])
             val = self.map[x, y]
 
-        robot_pose = np.array([x, y])
+        # robot_pose = np.array([13,1])
+        robot_pose = np.array([x,y])
 
         val = 1
         while val:
@@ -63,11 +64,21 @@ class mars_action_game(game):
             y = np.random.randint(0, self.map_size[1])
             val = self.map[x, y]
             diff = robot_pose - [x,y]
-            val = val or np.sum(diff) < 8
+            val = val or np.sum(np.abs(diff)) < 8
 
         goal_pose = np.array([x, y])
 
-        return robot_pose, goal_pose
+        val=1
+        while val:
+            x = np.random.randint(0, self.map_size[0])
+            y = np.random.randint(0, self.map_size[1])
+            val = self.map[x, y]
+            diff = robot_pose - [x,y]
+            # val = val or np.sum(np.abs(diff)) < 8
+
+        martian_pose = np.array([x, y])
+
+        return robot_pose, goal_pose, martian_pose
 
 
     def custom_action(self, act):

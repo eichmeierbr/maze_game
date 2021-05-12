@@ -12,8 +12,12 @@ class player:
         self.goal_x = 0
         self.goal_y = 0
         self.map = 0
+        self.scene = None
         pass
 
+
+    def doAction(self):
+        return 'a'
 
     def moveUp(self):
         return 'u'
@@ -39,7 +43,15 @@ class player:
     def canMoveRight(self):
         return not self.map[self.robot_x+1,self.robot_y]
 
+    def canDoAction(self):
+        if hasattr(self.scene,'martian_pos') and not self.scene.has_martian:
+            return np.allclose(self.scene.robot_pos, self.scene.martian_pos)
+        return False
 
+    def needAction(self):
+        if hasattr(self.scene,'has_martian'):
+            return self.scene.has_martian
+        return False
 
     def set_direction(self,action):
         directs = ['u','l','d','r']
@@ -49,6 +61,7 @@ class player:
 
     def act(self, scene):
 
+        self.scene = scene
         robot_x, robot_y = scene.robot_pos[:]
         goal_x, goal_y  = scene.goal_pos[:]
 
@@ -67,6 +80,11 @@ class player:
 
     def custom_action(self, robot_x, robot_y, goal_x, goal_y, Map):
         action = '_'
+        
+        if self.canDoAction():
+            action = self.doAction()
+            return action
+        
         while action[0] == '_':
             with keyboard.Events() as events:
                 event = events.get(1e6)
