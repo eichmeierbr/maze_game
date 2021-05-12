@@ -9,9 +9,9 @@ player = player()
 # player = custom_player()
 
 # Pick Game
-# gam = maze_game(map_file='maze_medium.csv')
-# gam = mars_game(random_start=False)
-gam = mars_action_game(random_start=False)
+gam = maze_game(map_file='maze_hard.csv')
+# gam = mars_game(random_start=True)
+# gam = mars_action_game(random_start=True)
 
 # Play Game
 gam.play_game(player)

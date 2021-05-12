@@ -132,7 +132,7 @@ class game:
         ## Remove Texts
         self.fig.texts = []
 
-    def custom_plot():
+    def custom_plot(self):
         pass
 
     def title_extra_txt(self):
