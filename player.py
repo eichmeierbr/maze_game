@@ -14,7 +14,19 @@ class player:
         self.map = 0
         self.scene = None
         self.path = []
+        self.block_coding = False
+        self.need_block_move = True
+        self.actions = []
         pass
+
+    def followPath(self):
+        # dict_map = {'[1,0]':'r', '[-1,0]':'l', '[0,-1]':'d', '[0,1]':'u'}
+        if self.path[0][0] == 1: self.moveRight()
+        if self.path[0][0] == -1: self.moveLeft()
+        if self.path[0][1] == 1: self.moveUp()
+        if self.path[0][1] == -1: self.moveDown()
+        self.path = self.path[1:]
+
 
 
     def useCheat(self, reuse=False):
@@ -22,30 +34,24 @@ class player:
             astar = a_star(self.scene.map, start=self.scene.robot_pos, goal=self.scene.goal_pos)
             self.path = astar.findPath(self.scene.robot_pos, self.scene.goal_pos)
 
-        # dict_map = {'[1,0]':'r', '[-1,0]':'l', '[0,-1]':'d', '[0,1]':'u'}
-        if self.path[0][0] == 1: act = 'r'
-        if self.path[0][0] == -1: act = 'l'
-        if self.path[0][1] == 1: act = 'u'
-        if self.path[0][1] == -1: act = 'd'
-        self.path = self.path[1:]
-        return act
+        self.followPath()
         
 
 
-    def doAction(self):
-        return 'a'
+    def doAction(self, count=1):
+        self.actions += count*['a']
 
-    def moveUp(self):
-        return 'u'
+    def moveUp(self, count=1):
+        self.actions += count*['u']
 
-    def moveDown(self):
-        return 'd'
+    def moveDown(self, count=1):
+        self.actions += count*['d']
 
-    def moveLeft(self):
-        return 'l'
+    def moveLeft(self, count=1):
+        self.actions += count*['l']
 
-    def moveRight(self):
-        return 'r'
+    def moveRight(self, count=1):
+        self.actions += count*['r']
 
     def canMoveUp(self):
         return not self.map[self.robot_x,self.robot_y+1]
@@ -88,9 +94,15 @@ class player:
         self.map = np.copy(scene.map)
 
         action = '_'
-        action = self.custom_action(robot_x, robot_y, goal_x, goal_y, self.map)
+        if (self.block_coding and self.need_block_move) or not self.block_coding:
+            self.custom_action(robot_x, robot_y, goal_x, goal_y, self.map)
+            self.need_block_move = False
 
-        self.set_direction(action)
+        if len(self.actions) > 0:
+            action = self.actions[0]
+            self.actions = self.actions[1:]
+
+            self.set_direction(action)
         return action[0].upper()
 
 
@@ -106,6 +118,12 @@ class player:
                 event = events.get(1e6)
                 if hasattr(event.key,'char'):
                     action = event.key.char
-        
-        return action
 
+        if action.lower()=='u':
+            self.moveUp()
+        elif action.lower()=='d':
+            self.moveUp()
+        elif action.lower()=='r':
+            self.moveUp()
+        elif action.lower()=='l':
+            self.moveUp()

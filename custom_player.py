@@ -39,18 +39,30 @@ Check if you need to do the action:     self.needAction()
 '''
 
 class custom_player(player):
-    def __init__(self):
+    def __init__(self, block_coding=False):
         super().__init__()
+        self.block_coding = block_coding
 
 
     def custom_action(self, robot_x, robot_y, goal_x, goal_y, Map):
-        action = '_'
 
         if hasattr(self.scene, 'martian_pos'):
             martian_x, martian_y = self.scene.martian_pos
 
         ### Start your code here
 
+        ## Move left and right
+        if goal_y > robot_y  and self.canMoveUp():
+            self.moveUp()
+        elif goal_y < robot_y and self.canMoveDown(): 
+            self.moveDown()
+
+
+        ## Move up and down
+        elif goal_x > robot_x and self.canMoveRight():
+            self.moveRight()
+        else:
+            self.moveLeft()
+
 
         ### End your code here
-        return action
