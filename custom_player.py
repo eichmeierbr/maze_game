@@ -64,5 +64,7 @@ class custom_player(player):
         else:
             self.moveLeft()
 
+        # self.moveLeft(4)
+
 
         ### End your code here

@@ -19,18 +19,25 @@ class game:
         self.last_act = ''
 
         self.robot_pos = np.array([2,1])
+        self.last_robot_pos = np.copy(self.robot_pos)
         self.goal_pos = np.array([1,4])
 
         self.robot_img = OffsetImage(plt.imread("robot.png"), zoom=.04)
         self.goal_img = OffsetImage(plt.imread("goal.png"), zoom=.03)
 
         self.plot_offset = [.5,.5]
+        self.turn = 0
+        self.max_turns = 200
+
+        self.stuck_count=0
+        self.max_stuck = 10
 
         self.goal_text = 'Navigate to the Goal'
-        self.action_text = 'Move Robotr: U:^, D:v, L:<, R:>'
+        self.action_text = 'Move Robot: U:^, D:v, L:<, R:>'
         self.success_text= 'WOOHOO! Robot reached the goal!'
         self.obstacle_text= 'Collision'
         self.invalid_in_txt = 'Invalid input received'
+        self.stuck_text = 'Oh No, Robot Got Stuck! Try Again!'
         self.show_invalid_text = False
         self.show_success_text = False
         self.show_obstacle_text = False
@@ -38,6 +45,7 @@ class game:
 
     def play_game(self, player):
         while True:
+            self.turn +=1
             self.show_img()
 
             act = player.act(self)
@@ -47,12 +55,31 @@ class game:
 
 
             ## Check end condition
-            if self.checkEndCondition():
+            if self.checkEndCondition() or self.ran_out_of_time() or self.robot_got_stuck():
                 self.show_success_text = True
                 print(self.success_text)
                 self.show_img()
                 plt.pause(5)
                 return
+
+
+    def ran_out_of_time(self):
+        if self.turn > self.max_turns:
+            self.success_text = "Ran out of time. Try again"
+            return True
+        return False
+
+    def robot_got_stuck(self):
+        if np.allclose(self.robot_pos, self.last_robot_pos):
+            self.stuck_count +=1
+        else:
+            self.last_robot_pos = np.copy(self.robot_pos)
+            self.stuck_count = 0
+        
+        if self.stuck_count > self.max_stuck:
+            self.success_text = "Rover Got Stuck. Try Again"
+            return True
+        return False
 
 
     def process_action(self, act):
@@ -140,10 +167,10 @@ class game:
         if self.show_invalid_text:
             extra = self.invalid_in_txt
             self.show_invalid_text = False
+        elif self.show_success_text:
+            extra = self.success_text
         elif self.show_obstacle_text:
             extra = self.obstacle_text
             self.show_obstacle_text = False
-        elif self.show_success_text:
-            extra = self.success_text
             self.show_success_text = False
         return extra

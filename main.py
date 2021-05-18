@@ -6,8 +6,8 @@ from custom_player import *
 
 # Pick Player
 # play = player()
-# play = custom_player(block_coding=True)
-play = custom_player()
+play = custom_player(block_coding=True)
+# play = custom_player()
 
 # Pick Game
 # gam = maze_game(map_file='maze_hard.csv')

@@ -122,8 +122,8 @@ class player:
         if action.lower()=='u':
             self.moveUp()
         elif action.lower()=='d':
-            self.moveUp()
+            self.moveDown()
         elif action.lower()=='r':
-            self.moveUp()
+            self.moveRight()
         elif action.lower()=='l':
-            self.moveUp()
+            self.moveLeft()
