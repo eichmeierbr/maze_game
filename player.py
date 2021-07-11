@@ -119,11 +119,11 @@ class player:
                 if hasattr(event.key,'char'):
                     action = event.key.char
 
-        if action.lower()=='u':
+        if action.lower()=='w':
             self.moveUp()
-        elif action.lower()=='d':
+        elif action.lower()=='s':
             self.moveDown()
-        elif action.lower()=='r':
+        elif action.lower()=='d':
             self.moveRight()
-        elif action.lower()=='l':
+        elif action.lower()=='a':
             self.moveLeft()

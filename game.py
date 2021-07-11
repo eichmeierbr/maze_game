@@ -42,6 +42,9 @@ class game:
         self.show_success_text = False
         self.show_obstacle_text = False
 
+        plt.rcParams['keymap.save'].remove('s')
+
+
 
     def play_game(self, player):
         while True:
@@ -152,6 +155,7 @@ class game:
         ## Draw Action Text
         plt.gcf().text(.88, .96,'Action:', fontsize=12)
         plt.gcf().text(.92, .92,self.last_act, fontsize=12)
+
 
         plt.draw()
         plt.pause(.01)

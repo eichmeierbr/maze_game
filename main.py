@@ -5,8 +5,8 @@ from player import *
 from custom_player import *
 
 # Pick Player
-# play = player()
-play = custom_player(block_coding=True)
+play = player()
+# play = custom_player(block_coding=True)
 # play = custom_player()
 
 # Pick Game

@@ -50,21 +50,6 @@ class custom_player(player):
             martian_x, martian_y = self.scene.martian_pos
 
         ### Start your code here
-
-        ## Move left and right
-        if goal_y > robot_y  and self.canMoveUp():
-            self.moveUp()
-        elif goal_y < robot_y and self.canMoveDown(): 
-            self.moveDown()
-
-
-        ## Move up and down
-        elif goal_x > robot_x and self.canMoveRight():
-            self.moveRight()
-        else:
-            self.moveLeft()
-
-        # self.moveLeft(4)
-
+        
 
         ### End your code here
