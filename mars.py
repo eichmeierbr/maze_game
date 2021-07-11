@@ -27,7 +27,7 @@ class mars_game(game):
         self.plot_offset = [0,0]
 
         self.goal_text = 'Navigate to the Mars Base'
-        self.action_text = 'Move Rover: U:^, D:v, L:<, R:>'
+        self.action_text = 'Move Rover: W:^, S:v, A:<, D:>'
         self.success_text= 'WOOHOO! Rover reached the base!'
         self.obstacle_text= 'Crater Detected'
         self.invalid_in_txt = 'Invalid input received'

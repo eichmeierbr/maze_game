@@ -33,7 +33,7 @@ class game:
         self.max_stuck = 10
 
         self.goal_text = 'Navigate to the Goal'
-        self.action_text = 'Move Robot: U:^, D:v, L:<, R:>'
+        self.action_text = 'Move Robot: W:^, S:v, A:<, D:>'
         self.success_text= 'WOOHOO! Robot reached the goal!'
         self.obstacle_text= 'Collision'
         self.invalid_in_txt = 'Invalid input received'
