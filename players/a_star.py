@@ -23,7 +23,7 @@ class Node():
         return self.cost >= o.cost
         
 
-class a_star():
+class AStar():
     def __init__(self, map=None, start=None, goal=None):
         self.map = map
         self.visit_map = np.zeros_like(map)

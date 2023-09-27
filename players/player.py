@@ -1,7 +1,7 @@
 import numpy as np
-from pynput import keyboard
+# from pynput import keyboard
 from game.game import *
-from a_star import *
+from players.a_star import *
     
 
 class Player:
@@ -31,7 +31,7 @@ class Player:
 
     def useCheat(self, reuse=False):
         if len(self.path) == 0 or not reuse:
-            astar = a_star(self.scene.map, start=self.scene.robot_pos, goal=self.scene.goal_pos)
+            astar = AStar(self.scene.map, start=self.scene.robot_pos, goal=self.scene.goal_pos)
             self.path = astar.findPath(self.scene.robot_pos, self.scene.goal_pos)
 
         self.followPath()
@@ -113,11 +113,12 @@ class Player:
             action = self.doAction()
             return action
         
-        while action[0] == '_':
-            with keyboard.Events() as events:
-                event = events.get(1e6)
-                if hasattr(event.key,'char'):
-                    action = event.key.char
+        action = input()
+        # while action[0] == '_':
+            # with keyboard.Events() as events:
+            #     event = events.get(1e6)
+            #     if hasattr(event.key,'char'):
+            #         action = event.key.char
 
         if action.lower()=='w':
             self.moveUp()
@@ -127,3 +128,4 @@ class Player:
             self.moveRight()
         elif action.lower()=='a':
             self.moveLeft()
+        pass
