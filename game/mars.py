@@ -2,12 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-from game import *
+from game.game import *
 
-class mars_game(game):
+class MarsGame(Game):
     def __init__(self, random_start=False, robot_start=np.array([10,1]), goal_start=np.array([2,9])
 ):
-        self.img = plt.imread("mars.jpg")
+        self.img = plt.imread("images/mars.jpg")
         self.map_size = [15,12]
         self.map = self.make_map()
 
@@ -21,8 +21,8 @@ class mars_game(game):
             self.robot_pos = robot_start
             self.goal_pos = goal_start
 
-        self.robot_img = OffsetImage(plt.imread("rover2.png"), zoom=.15)
-        self.goal_img = OffsetImage(plt.imread("base.png"), zoom=.25)
+        self.robot_img = OffsetImage(plt.imread("images/rover2.png"), zoom=.15)
+        self.goal_img = OffsetImage(plt.imread("images/base.png"), zoom=.25)
 
         self.plot_offset = [0,0]
 

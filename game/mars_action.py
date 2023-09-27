@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-from game import *
+from game.game import *
 
-class mars_action_game(game):
+class MarseActionGame(Game):
     def __init__(self, random_start=False, robot_start=np.array([10,1]), goal_start=np.array([2,9]), martian_start=np.array([1,1])):
         super().__init__()
 
@@ -21,9 +21,9 @@ class mars_action_game(game):
             self.goal_pos = goal_start
             self.martian_pos = martian_start
 
-        self.robot_img = OffsetImage(plt.imread("rover2.png"), zoom=.15)
-        self.goal_img = OffsetImage(plt.imread("base.png"), zoom=.25)
-        self.martian_img = OffsetImage(plt.imread("martian.png"), zoom=.03)
+        self.robot_img = OffsetImage(plt.imread("images/rover2.png"), zoom=.15)
+        self.goal_img = OffsetImage(plt.imread("images/base.png"), zoom=.25)
+        self.martian_img = OffsetImage(plt.imread("images/martian.png"), zoom=.03)
 
         self.plot_offset = [0,0]
 

@@ -4,10 +4,10 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 plt.ion()
 
-class game:
+class Game:
     def __init__(self):
         if not hasattr(self,'img'):
-            self.img = plt.imread("mars.jpg")
+            self.img = plt.imread("images/mars.jpg")
         if not hasattr(self,'map_size'):
             self.map_size = [15,12]
         if not hasattr(self,'map'):
@@ -22,8 +22,8 @@ class game:
         self.last_robot_pos = np.copy(self.robot_pos)
         self.goal_pos = np.array([1,4])
 
-        self.robot_img = OffsetImage(plt.imread("robot.png"), zoom=.04)
-        self.goal_img = OffsetImage(plt.imread("goal.png"), zoom=.03)
+        self.robot_img = OffsetImage(plt.imread("images/robot.png"), zoom=.04)
+        self.goal_img = OffsetImage(plt.imread("images/goal.png"), zoom=.03)
 
         self.plot_offset = [.5,.5]
         self.turn = 0

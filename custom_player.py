@@ -1,7 +1,7 @@
 import numpy as np
-from game import *
+from game.game import *
 from player import *
-from mars_action import *
+from game.mars_action import *
 
 ''' 
 Here are some things you can do:
@@ -38,10 +38,9 @@ Check if you need to do the action:     self.needAction()
 
 '''
 
-class custom_player(player):
+class CustomPlayer(Player):
     def __init__(self, block_coding=False):
-        super().__init__()
-        self.block_coding = block_coding
+        super().__init__(block_coding=block_coding)
 
 
     def custom_action(self, robot_x, robot_y, goal_x, goal_y, Map):

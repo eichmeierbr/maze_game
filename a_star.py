@@ -101,7 +101,7 @@ class a_star():
 
 
 if __name__ == "__main__":
-    maze = np.loadtxt('maze_hard.csv', delimiter=',')
+    maze = np.loadtxt('mazes/maze_hard.csv', delimiter=',')
 
     robot_pos = np.array([1,48])
     goal_pos  = np.array([47,1])

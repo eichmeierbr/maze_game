@@ -247,4 +247,4 @@ maze = maze.astype(int)
 
 plt.imshow(maze, cmap='Greys')
 plt.show()
-# np.savetxt('maze_new.csv', maze, fmt='%.0f', delimiter=',')
+# np.savetxt('mazes/maze_new.csv', maze, fmt='%.0f', delimiter=',')

@@ -1,11 +1,11 @@
 import numpy as np
 from pynput import keyboard
-from game import *
+from game.game import *
 from a_star import *
     
 
-class player:
-    def __init__(self):
+class Player:
+    def __init__(self, block_coding=False):
         self.direction = 'u'
         self.robot_x = 0
         self.robot_y = 0
@@ -14,7 +14,7 @@ class player:
         self.map = 0
         self.scene = None
         self.path = []
-        self.block_coding = False
+        self.block_coding = block_coding
         self.need_block_move = True
         self.actions = []
         pass
