@@ -1,4 +1,4 @@
-def left_right_up_down(robot_x, robot_y, goal_x, goal_y, robot):
+def left_right_up_down(robot_x, robot_y, goal_x, goal_y, robot, map):
     ## This function will align itrobot left-right with the goal.
     ## Then it will move up-down to the goal
 
@@ -15,7 +15,7 @@ def left_right_up_down(robot_x, robot_y, goal_x, goal_y, robot):
         robot.moveDown()
 
 
-def followWall(robot_x, robot_y, goal_x, goal_y, robot):
+def followWall(robot_x, robot_y, goal_x, goal_y, robot, map):
     ## This function always follows the right wall
 
     # Looking up

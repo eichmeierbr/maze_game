@@ -5,7 +5,7 @@ from players.a_star import *
     
 
 class Player:
-    def __init__(self, block_coding=False):
+    def __init__(self, action_funciton=None, block_coding=False):
         self.direction = 'u'
         self.robot_x = 0
         self.robot_y = 0
@@ -17,6 +17,10 @@ class Player:
         self.block_coding = block_coding
         self.need_block_move = True
         self.actions = []
+        if action_funciton is None:
+            self.get_action = self.default_action
+        else:
+            self.get_action = action_funciton
         pass
 
     def followPath(self):
@@ -95,7 +99,7 @@ class Player:
 
         action = '_'
         if (self.block_coding and self.need_block_move) or not self.block_coding:
-            self.custom_action(robot_x, robot_y, goal_x, goal_y, self.map)
+            self.get_action(robot_x, robot_y, goal_x, goal_y, self, self.map)
             self.need_block_move = False
 
         if len(self.actions) > 0:
@@ -106,7 +110,7 @@ class Player:
         return action[0].upper()
 
 
-    def custom_action(self, robot_x, robot_y, goal_x, goal_y, Map):
+    def default_action(self, robot_x, robot_y, goal_x, goal_y, robot, map):
         action = '_'
         
         if self.canDoAction():
