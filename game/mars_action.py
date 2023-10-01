@@ -35,7 +35,6 @@ class MarseActionGame(Game):
         self.need_action_txt = 'You still need the martian!!'
         self.good_action_txt = 'You picked up the martian!'
 
-        self.show_img()
 
 
     def checkEndCondition(self):

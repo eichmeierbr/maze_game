@@ -3,12 +3,13 @@ from game.mars import *
 from game.mars_action import *
 from game.maze import *
 from players.player import *
-from custom_player import *
 
 from game.game import *
 from players.player import *
 from game.mars_action import *
 from players.example_players import *
+
+from IPython.display import HTML
 
 
 def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
@@ -45,31 +46,36 @@ def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
     Perorm action (pick up the martian):    self.doAction()
     Check if you need to do the action:     self.needAction()
     """
-    if robot_x > goal_x:
-        robot.moveLeft()
+    robot.useCheat(reuse=True)
+    # if robot_x > goal_x:
+    #     robot.moveLeft()
 
-    elif robot_x < goal_x:
-        robot.moveRight()
+    # elif robot_x < goal_x:
+    #     robot.moveRight()
     
-    elif robot_y < goal_y:
-        robot.moveUp()
+    # elif robot_y < goal_y:
+    #     robot.moveUp()
     
-    else:
-        robot.moveDown()
+    # else:
+    #     robot.moveDown()
 
 
 def run_game():
     # Pick Player
-    play = Player(left_right_up_down, block_coding=False)
+    play = Player(custom_robot, block_coding=False)
 
     # Pick Game
     # gam = MazeGame(map_file='mazes/maze_hard.csv')
     gam = MarsGame(random_start=False)
     # gam = MarsActionGame(random_start=True)
 
-    # Play Game
-    gam.play_game(play)
+    gam.player = play
 
+    # Play Game
+    # gam.play_game_loop()
+
+    return gam.anim
 
 if __name__=="__main__":
-    run_game()
+    anim = run_game()
+    HTML(anim.to_html5_video())

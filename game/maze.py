@@ -24,9 +24,6 @@ class MazeGame(Game):
             self.goal_pos = np.array([47,1])
 
 
-        self.show_img()
-
-
 
 
     def make_map(self):

@@ -32,7 +32,6 @@ class MarsGame(Game):
         self.obstacle_text= 'Crater Detected'
         self.invalid_in_txt = 'Invalid input received'
 
-        self.show_img()
 
 
     def random_starts(self):
