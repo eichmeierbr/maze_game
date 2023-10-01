@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import matplotlib.animation
 
 plt.ion()
 
@@ -27,7 +28,7 @@ class Game:
 
         self.plot_offset = [.5,.5]
         self.turn = 0
-        self.max_turns = 200
+        self.max_turns = 50
 
         self.stuck_count=0
         self.max_stuck = 10
@@ -41,29 +42,39 @@ class Game:
         self.show_invalid_text = False
         self.show_success_text = False
         self.show_obstacle_text = False
+        self.finished = False
 
-        plt.rcParams['keymap.save'].remove('s')
-
-
-
-    def play_game(self, player):
-        while True:
-            self.turn +=1
-            self.show_img()
-
-            act = player.act(self)
-            self.last_act = act
-            print(act)
-            self.process_action(act)
+        # plt.rcParams['keymap.save'].remove('s')    
+        self.anim = matplotlib.animation.FuncAnimation(self.fig, self.play_game, frames=self.max_turns, interval=2, blit=False)
 
 
-            ## Check end condition
-            if self.checkEndCondition() or self.ran_out_of_time() or self.robot_got_stuck():
-                self.show_success_text = True
-                print(self.success_text)
-                self.show_img()
-                plt.pause(5)
-                return
+    def play_game_loop(self):
+        while not self.play_game(0):
+            pass
+
+    def play_game(self, frame):
+        if self.finished:
+            return
+        self.turn += 1
+
+        self.show_img()
+
+        ## Check end condition
+        if self.checkEndCondition() or self.ran_out_of_time() or self.robot_got_stuck():
+            self.show_success_text = True
+            print(self.success_text)
+            plt.pause(2)
+            self.anim.event_source.stop()
+            self.finished = True
+            plt.close()
+            return True
+
+        act = self.player.act(self)
+        self.last_act = act
+        print(act)
+        self.process_action(act)
+
+        return False
 
 
     def ran_out_of_time(self):
@@ -158,7 +169,7 @@ class Game:
 
 
         plt.draw()
-        plt.pause(.01)
+        plt.pause(.001)
 
         ## Remove Texts
         self.fig.texts = []
