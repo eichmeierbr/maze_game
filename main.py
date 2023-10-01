@@ -10,7 +10,7 @@ from game.mars_action import *
 from players.example_players import *
 
 from IPython.display import HTML
-
+from matplotlib import animation
 
 def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
     """ 
@@ -47,17 +47,6 @@ def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
     Check if you need to do the action:     self.needAction()
     """
     robot.useCheat(reuse=True)
-    # if robot_x > goal_x:
-    #     robot.moveLeft()
-
-    # elif robot_x < goal_x:
-    #     robot.moveRight()
-    
-    # elif robot_y < goal_y:
-    #     robot.moveUp()
-    
-    # else:
-    #     robot.moveDown()
 
 
 def run_game():
@@ -74,8 +63,12 @@ def run_game():
     # Play Game
     # gam.play_game_loop()
 
-    return gam.anim
+    return gam
 
 if __name__=="__main__":
-    anim = run_game()
-    HTML(anim.to_html5_video())
+    gam = run_game()
+
+    # To save the animation using Pillow as a gif
+    writer = animation.PillowWriter(fps=5,
+                                    bitrate=1800)
+    gam.anim.save('robot.gif', writer=writer)
