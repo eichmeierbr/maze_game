@@ -24,26 +24,26 @@ def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
 
     You can also check to see if you can move a certain direction
 
-            self.canMoveUp()
-            self.canMoveDown()
-            self.canMoveLeft()
-            self.canMoveRight()
+            robot.canMoveUp()
+            robot.canMoveDown()
+            robot.canMoveLeft()
+            robot.canMoveRight()
 
         Example:
 
-        if self.canMoveUp():
-            self.moveUp()
+        if map.canMoveUp():
+            robot.moveUp()
 
     You can also check what your last move was (which direction are you looking):
 
-            direction = self.direction
+            direction = robot.direction
             This will give you 'u', 'l', 'd', or 'r'
 
     In the Mars Action game there is also an action to pick up the Martian:
 
-    Can you perform the action:             self.canDoAction()
-    Perorm action (pick up the martian):    self.doAction()
-    Check if you need to do the action:     self.needAction()
+    Can you perform the action:             robot.canDoAction()
+    Perorm action (pick up the martian):    robot.doAction()
+    Check if you need to do the action:     robot.needAction()
     """
     robot.useCheat(reuse=True)
 

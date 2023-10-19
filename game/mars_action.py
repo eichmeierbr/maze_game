@@ -4,7 +4,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 from game.game import *
 
-class MarseActionGame(Game):
+class MarsActionGame(Game):
     def __init__(self, random_start=False, robot_start=np.array([10,1]), goal_start=np.array([2,9]), martian_start=np.array([1,1])):
         super().__init__()
 

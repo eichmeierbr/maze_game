@@ -39,7 +39,6 @@ class Player:
             self.path = astar.findPath(self.scene.robot_pos, self.scene.goal_pos)
 
         self.followPath()
-        
 
 
     def doAction(self, count=1):
