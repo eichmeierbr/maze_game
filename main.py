@@ -10,7 +10,6 @@ from game.mars_action import *
 from players.example_players import *
 
 from IPython.display import HTML
-from matplotlib import animation
 
 def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
     """ 
@@ -61,14 +60,11 @@ def run_game():
     gam.player = play
 
     # Play Game
-    # gam.play_game_loop()
+    gam.play_game_loop()
 
     return gam
 
 if __name__=="__main__":
     gam = run_game()
 
-    # To save the animation using Pillow as a gif
-    writer = animation.PillowWriter(fps=5,
-                                    bitrate=1800)
-    gam.anim.save('robot.gif', writer=writer)
+    gam.anim.save('robot.gif', writer="pillow", fps=5)

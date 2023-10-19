@@ -45,7 +45,13 @@ class Game:
         self.finished = False
 
         # plt.rcParams['keymap.save'].remove('s')    
-        self.anim = matplotlib.animation.FuncAnimation(self.fig, self.play_game, frames=self.max_turns, interval=2, blit=False)
+        self.anim = matplotlib.animation.FuncAnimation(
+            self.fig, 
+            self.play_game, 
+            frames=self.max_turns, 
+            interval=2, 
+            blit=False
+        )
 
 
     def play_game_loop(self):
@@ -54,7 +60,7 @@ class Game:
 
     def play_game(self, frame):
         if self.finished:
-            return
+            return True
         self.turn += 1
 
         self.show_img()
@@ -63,10 +69,10 @@ class Game:
         if self.checkEndCondition() or self.ran_out_of_time() or self.robot_got_stuck():
             self.show_success_text = True
             print(self.success_text)
-            plt.pause(2)
-            self.anim.event_source.stop()
+            # plt.pause(2)
+            # self.anim.event_source.stop()
             self.finished = True
-            plt.close()
+            # plt.close()
             return True
 
         act = self.player.act(self)
