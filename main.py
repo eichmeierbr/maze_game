@@ -17,10 +17,10 @@ def custom_robot(robot_x, robot_y, goal_x, goal_y, robot, map):
 
     You can only move up, down, left, or right at any turn
 
-    Move up:        self.moveUp()
-    Move down:      self.moveDown()
-    Move left:      self.moveLeft()
-    Move right:     self.moveRight()
+    Move up:        robot.moveUp()
+    Move down:      robot.moveDown()
+    Move left:      robot.moveLeft()
+    Move right:     robot.moveRight()
 
     You can also check to see if you can move a certain direction
 
